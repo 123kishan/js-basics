@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAV</title>
+    <style>
+        a
+        {
+            margin: 20px 0px 0px 70px;
+            display: inline-block;
+            color: rgb(227, 164, 38);
+            
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 23px;
+        }
+        form
+        {
+            margin-top: 0%;
+            margin-left: 25%;
+            margin-right: 25%;
+            border: 1px solid rgb(227, 164, 38);
+            border-radius: 10px;
+        }
+        h1{
+            color: rgb(227, 164, 38);
+            font-size: 23px;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <a href="" style="position: relative;">YAV</a>
+    <form action="#" onsubmit="signup()">
+        <h1 align="center">Book a call</h1>
+        <p align="center">Book a call slot and our representative will call you wiithin 1hr of selected time</p>
+        <hr>
+        <label for="Name" align="left">Name:</label><br>
+        <input type="text" id="Name" style="width: 99%; height: 25px;"><br>
+        <label for="email" align="left">Email:</label><br>
+        <input type="email" id="email" style="width: 99%; height: 25px;"><br>
+        <label for="phone" align="left">Phone:</label><br>
+        <input type="phone" id="phone" style="width: 99%; height: 25px;"><br>
+        <label for="date" align="left">Time for call:</label><br>
+        <input type="date" id="phone" style="width: 49%; height: 25px;">
+        <input list="browsers" id="Time">
+        <datalist id="browsers">
+            <option value="11:00"></option>
+        </datalist><br>
+        <input type="submit" value="Get A Call"style="width: 99%; height: 30px; background-color: rgb(227, 164, 38);">
+
+    </form>
+    <script>
+        function signup()
+        {
+            const name=document.getElementById('Name');
+            const email=document.getElementById('email');
+            console.log(name);
+            console.log(email);
+
+        }
+
+    </script>
+</body>
+</html>
