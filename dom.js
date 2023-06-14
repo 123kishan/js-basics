@@ -1,3 +1,6 @@
-document.getElementById('header-title').style.borderBottom='solid 1px black';
 var item=document.getElementsByClassName('list-group-item');
-item[4].style.color="green";
+item[2].style.backgroundColor="green";
+for(let i=0;i<5;i++)
+{
+    item[i].style.fontWeight="bold";
+}
