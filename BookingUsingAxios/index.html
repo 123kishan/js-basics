@@ -48,20 +48,27 @@
                 .catch((err) => {
                     console.log(err);
                 });
-            
+
             function deleteUser(userId) {
                 axios.delete(`https://crudcrud.com/api/ea44111d60ab407d8f6c4dcbeada7a26/appointmentData/${userId}`)
                     .then(response => {
                         const index = users.findIndex(user => user._id === userId);
                         if (index !== -1) {
                             users.splice(index, 1);
-                            show(user); 
+                            show(user);
                         }
                     })
                     .catch(error => {
                         console.error('Error deleting user:', error);
                     });
             }
+            axios.put(`https://crudcrud.com/api/ea44111d60ab407d8f6c4dcbeada7a26/appointmentData/${userId}`, updatedUser)
+                .then(response => {
+                    console.log('User details updated successfully:', response.data);
+                })
+                .catch(error => {
+                    console.error('Error updating user details:', error);
+                });
             function show(user) {
                 document.getElementById('email').value = user.name;
                 document.getElementById('username').value = user.email;
