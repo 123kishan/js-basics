@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock details</title>
+</head>
+
+<body>
+    <form>
+        Selling Price:
+        <input type="text" id="price">
+        Product Name:
+        <input type="text" id="name">
+        <button id="add">Add Product</button>
+    </form>
+    <h1>Products</h1><br>
+    <ul id="list">
+
+    </ul><br>
+    <h2>Total Value Worth of Products: Rs</h2>
+    <p id="worth"></p>
+    <script>
+        var add = document.getElementById('add');
+        add.addEventListener('click', show);
+        function show(e) {
+            e.preventDefault();
+            var price = document.getElementById('price');
+            var name = document.getElementById('name');
+            let li = document.createElement('li');
+            /*const obj = {
+                price,
+                name
+            }
+            axios.post("https://crudcrud.com/api/5435cfc2cc8e40568395b39a3a2d98f1/jsTest", obj)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });*/
+            //li.textContent = `${price.value}-${name.value}`;
+            li.innerHTML=`<pre><p id="priceValue">${price.value}</p><p id="nameValue">${name.value}</p><button onclick="funDel(this)">Delete Product</button></pre>`;
+            li.id="list1";
+            /*let btn1=document.createElement('button');
+            btn1.textContent="Delete Product";
+            btn1.id="btn1";
+            li.appendChild(btn1);*/
+            const menu = document.querySelector('#list');
+            menu.appendChild(li);
+            const listPrice=document.querySelectorAll("#priceValue");
+            var sum=0;
+            for (let i = 0; i <listPrice.length; i++) {
+                
+                sum=sum+Number(listPrice[i].textContent);
+                
+                 }
+                 
+            document.getElementById("worth").textContent=sum;
+        }
+        
+        function funDel(button)
+        {
+            var listItem = button.parentNode;
+      var list = listItem.parentNode;
+      list.removeChild(listItem);
+      var curr=document.getElementById("worth").textContent;
+      document.getElementById("worth").textContent=Number(curr)-Number(listItem.querySelector("#priceValue").textContent);
+      
+        }
+    </script>
+</body>
+
+</html>
