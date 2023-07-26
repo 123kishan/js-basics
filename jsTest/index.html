@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock details</title>
+    <title>Expense tracker</title>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
     <ul id="list">
 
     </ul><br>
-    <h2>Total Value Worth of Products: Rs</h2>
+    <h2>Total Value Worth of Products: Rs </h2>
     <p id="worth"></p>
     <script>
         var add = document.getElementById('add');
@@ -29,47 +29,81 @@
             var price = document.getElementById('price');
             var name = document.getElementById('name');
             let li = document.createElement('li');
-            /*const obj = {
-                price,
-                name
+            const obj = {
+                expenseAmount: `${price.value}`,
+                description: `${name.value}`
             }
-            axios.post("https://crudcrud.com/api/5435cfc2cc8e40568395b39a3a2d98f1/jsTest", obj)
-                .then((response) => {
+            async function postData(obj) {
+                try {
+                    const response = await axios.post("https://crudcrud.com/api/f0f44203f0d84b07b10d130c808001cf/ExpenseTracker", obj);
                     console.log(response);
-                })
-                .catch((err) => {
+                } catch (err) {
                     console.log(err);
-                });*/
-            //li.textContent = `${price.value}-${name.value}`;
-            li.innerHTML=`<pre><p id="priceValue">${price.value}</p><p id="nameValue">${name.value}</p><button onclick="funDel(this)">Delete Product</button></pre>`;
-            li.id="list1";
-            /*let btn1=document.createElement('button');
-            btn1.textContent="Delete Product";
-            btn1.id="btn1";
-            li.appendChild(btn1);*/
-            const menu = document.querySelector('#list');
-            menu.appendChild(li);
-            const listPrice=document.querySelectorAll("#priceValue");
-            var sum=0;
-            for (let i = 0; i <listPrice.length; i++) {
-                
-                sum=sum+Number(listPrice[i].textContent);
-                
-                 }
-                 
-            document.getElementById("worth").textContent=sum;
+                }
+            }
+            postData(obj);
+
+
+            fetchItems();
+
         }
-        
-        function funDel(button)
-        {
-            var listItem = button.parentNode;
-      var list = listItem.parentNode;
-      list.removeChild(listItem);
-      var curr=document.getElementById("worth").textContent;
-      document.getElementById("worth").textContent=Number(curr)-Number(listItem.querySelector("#priceValue").textContent);
-      
+        document.addEventListener("DOMContentLoaded", fetchItems);
+        function fetchItems() {
+            var sum = 0;
+            async function getData() {
+                try {
+                    const response = await axios.get("https://crudcrud.com/api/f0f44203f0d84b07b10d130c808001cf/ExpenseTracker");
+                    const items = response.data;
+                    const itemList = document.getElementById('list');
+                    itemList.innerHTML = '';
+                    items.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `${item.description}- Rs ${item.expenseAmount} `;
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete Product';
+                        deleteButton.addEventListener('click', () => {
+                            deleteItem(item._id);
+                        });
+                        listItem.appendChild(deleteButton);
+                        itemList.appendChild(listItem);
+
+                        sum = sum + Number(item.expenseAmount);
+                        document.getElementById("worth").textContent = sum;
+
+                    });
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            getData();
+           
+
+        }
+
+        // Function to delete an item from the server
+        function deleteItem(itemId) {
+            async function deleteData() {
+                try {
+                    const response = await axios.delete(`https://crudcrud.com/api/f0f44203f0d84b07b10d130c808001cf/ExpenseTracker/${itemId}`);
+                    fetchItems();
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            deleteData();
+            /*axios.delete(`https://crudcrud.com/api/f0f44203f0d84b07b10d130c808001cf/ExpenseTracker/${itemId}`)
+                .then(response => {
+                    console.log('Item deleted successfully:', response.data);
+
+                    fetchItems();
+
+                })
+                .catch(error => {
+                    console.error('Error deleting item:', error);
+                });*/
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.js"></script>
 </body>
 
 </html>
